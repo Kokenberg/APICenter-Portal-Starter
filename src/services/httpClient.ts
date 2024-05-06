@@ -15,6 +15,9 @@ export class HttpClient implements IHttpClient {
         const headers: HeadersInit = {
             Accept: "application/json",
             "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": settings.dataApiHostName,
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Request-Method": Method.GET
         };
 
         if (accessToken) {
