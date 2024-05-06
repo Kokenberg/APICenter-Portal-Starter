@@ -21,7 +21,7 @@ export class HttpClient implements IHttpClient {
             headers.Authorization = "Bearer " + accessToken;
         }
 
-        const response = await fetch(requestUrl, { method, headers });
+        const response = await fetch(requestUrl, { method, headers, mode: 'no-cors' });
 
         if (accessToken && (response.status === 401 || response.status == 403)) {
             localStorage.setItem("MS_APIC_DEVPORTAL_isRestricted", "true");
