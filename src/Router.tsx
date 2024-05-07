@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Landing from "./routes/Main";
 import ApiDetail from "./routes/Main/ApiDetail";
+import ApiSpec from "./routes/Main/ApiDetail/Spec";
 import Layout from "./Layout";
 
 const router = createBrowserRouter([
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
                     {
                         path: "detail/:id",
                         element: <ApiDetail />,
+                    },
+                    {
+                        path: "detail/:id/:version/:specification",
+                        element: <ApiSpec />,
                     },
                 ],
             },

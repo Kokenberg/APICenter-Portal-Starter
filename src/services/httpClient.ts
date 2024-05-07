@@ -38,4 +38,36 @@ export class HttpClient implements IHttpClient {
 
         return dataJson;
     }
+
+    public async fetchData2(url: string, method: Method = Method.GET): Promise<any> {
+        const accessToken = await authService.getAccessToken();
+        const settings = await configService.getSettings();
+        const requestUrl = url;
+
+        const headers: HeadersInit = {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": settings.dataApiHostName,
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Request-Method": Method.GET
+        };
+
+        if (accessToken) {
+            headers.Authorization = "Bearer " + accessToken;
+        }
+
+        const response = await fetch(requestUrl, { method, mode: "no-cors" });
+
+        if (accessToken && (response.status === 401 || response.status == 403)) {
+            localStorage.setItem("MS_APIC_DEVPORTAL_isRestricted", "true");
+            return;
+        } else if (!response.ok) {
+            alert("Something went wrong");
+            return;
+        }
+
+        const dataJson = await response.json();
+
+        return dataJson;
+    }
 }

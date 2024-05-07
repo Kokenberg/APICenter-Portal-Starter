@@ -4,10 +4,12 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { FC, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Body1, Body1Strong, Button, Caption1, Link, MessageBar, MessageBarBody } from "@fluentui/react-components";
 import { ArrowDownloadRegular, Document20Regular } from "@fluentui/react-icons";
 
 import VsCodeLogo from "../../../components/logos/VsCodeLogo";
+import OpenApiLogo from "../../../components/logos/OpenApiLogo";
 import { Api } from "../../../contracts/api";
 import { useApiService } from "../../../util/useApiService";
 
@@ -15,6 +17,7 @@ import css from "./index.module.scss";
 
 const Options: FC<{ api: Api; version?: string; definition?: string }> = ({ api, version, definition }) => {
     const apiService = useApiService();
+    const navigate = useNavigate();
     const [schemaUrl, setSchemaUrl] = useState("");    
 
     useEffect(() => {
@@ -59,6 +62,11 @@ const Options: FC<{ api: Api; version?: string; definition?: string }> = ({ api,
                                 onClick={() => window.open(`vscode:extension/apidev.azure-api-center`)}
                             >
                                 Open in Visual Studio Code
+                            </Button>
+                            <Button 
+                                icon={<OpenApiLogo />}
+                                onClick={() => navigate(version + "/" + definition)}>
+                                OpenAPI Spec
                             </Button>
                         </div>
                     </div>
